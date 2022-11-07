@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "20107916687",
+    "project_id": "feslender-kotlin-70d17",
+    "storage_bucket": "feslender-kotlin-70d17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20107916687:android:6010e1c88b231ab96607fa",
+        "android_client_info": {
+          "package_name": "com.OOP.FeslenderApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20107916687-9nqcs1m4257nil4u7aob14obb5m4i99h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACjxvTtCwrM9KcBFdagXDpRxwmjgKssmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20107916687-9nqcs1m4257nil4u7aob14obb5m4i99h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
