@@ -26,33 +26,6 @@ class festival_list : Fragment() {
 
     var binding: FragmentFestivalListBinding? = null
 
-    /*
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_item_list, container, false)
-
-
-        // Set the adapter
-        if (view is RecyclerView) {
-            val context: Context = view.getContext()
-            val mRecyclerView = view
-            mRecyclerView.setHasFixedSize(true)
-
-
-            // use a linear layout manager
-            mLayoutManager = LinearLayoutManager(context)
-            mRecyclerView.layoutManager = mLayoutManager
-
-
-            // specify an adapter (see also next example)
-            mAdapter = CollectionListAdapter(myList)
-            mRecyclerView.adapter = mAdapter
-        }
-        return view
-    }
-    */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,7 +39,6 @@ class festival_list : Fragment() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (ds in snapshot.children) {
-                    Log.e("snap", ds.toString())
                     val name: String = ds.child("name").value as String
                     val date: String = ds.child("date").value as String
                     val endDate: String = ds.child("end_date").value as String
@@ -74,8 +46,6 @@ class festival_list : Fragment() {
                     val poster: String = ds.child("pos").value as String
 
                     val myfesData = FesData(name, date, location, endDate, poster)
-
-                    Log.e("arrayData",fesdata.toString())
                     fesdata.add(myfesData)
                 }
                 adapter.notifyDataSetChanged()
