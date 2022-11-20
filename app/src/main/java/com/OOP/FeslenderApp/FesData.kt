@@ -1,7 +1,8 @@
 package com.OOP.FeslenderApp
 
-data class FesData (val name: String,
-                     val date: String,
-                     val location: String,
-                     val end_date: String,
-                     val poster: String)
+data class FesData (
+    var name: String = "",
+    var date: String = "",
+    var location: String = "",
+    var end_date: String = "",
+    var poster: String = "")

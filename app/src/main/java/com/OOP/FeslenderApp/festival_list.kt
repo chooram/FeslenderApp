@@ -39,6 +39,15 @@ class festival_list : Fragment() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (ds in snapshot.children) {
+                    val myfesData = FesData().apply{
+                        name = ds.child("name").value as String
+                        date = ds.child("date").value as String
+                        end_date = ds.child("end_date").value as String
+                        location = ds.child("location").value as String
+                        poster = ds.child("pos").value as String
+                    }
+                    fesdata.add(myfesData)
+                    /*
                     val name: String = ds.child("name").value as String
                     val date: String = ds.child("date").value as String
                     val endDate: String = ds.child("end_date").value as String
@@ -47,6 +56,8 @@ class festival_list : Fragment() {
 
                     val myfesData = FesData(name, date, location, endDate, poster)
                     fesdata.add(myfesData)
+
+                     */
                 }
                 adapter.notifyDataSetChanged()
             }
