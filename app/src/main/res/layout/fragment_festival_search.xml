@@ -76,21 +76,21 @@
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button3"
+            android:id="@+id/btn_festival"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00ff0000"
             android:text="페스티벌" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button4"
+            android:id="@+id/btn_concert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00ff0000"
             android:text="콘서트" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button5"
+            android:id="@+id/btn_match"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00ff0000"
