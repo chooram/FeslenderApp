@@ -1,6 +1,7 @@
 package com.OOP.FeslenderApp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,15 +43,23 @@ class festival_search : Fragment() {
             val bundle = bundleOf("click" to result)
             findNavController().navigate(R.id.action_festival_search_to_festival_list,bundle)
         }
-
-        /*
-        binding?.btnResult?.setOnClickListener {
-            val result = examineMBTI()
-            val bundle = bundleOf("MBTI" to result)
-            findNavController().navigate(R.id.action_examineFragment_to_resultFragment,bundle)
+        binding?.btnSoon?.setOnClickListener{
+            val result = "soon"
+            val bundle = bundleOf("click" to result)
+            findNavController().navigate(R.id.action_festival_search_to_festival_list,bundle)
         }
+        binding?.btnArea?.setOnClickListener{
+            val result = "area"
+            val bundle = bundleOf("click" to result)
+            findNavController().navigate(R.id.action_festival_search_to_festival_area_list,bundle)
+        }
+        binding?.btnSearch?.setOnClickListener{
+            val result = binding?.searchText?.text
+            Log.e("SearchText:",result.toString())
+            val bundle = bundleOf("search" to result.toString())
+            findNavController().navigate(R.id.action_festival_search_to_festival_list,bundle)
 
-         */
+        }
     }
 
     override fun onDestroyView() {

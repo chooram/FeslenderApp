@@ -27,7 +27,6 @@ class FesAdapter(val _fes: ArrayList<FesData>) : RecyclerView.Adapter<FesAdapter
     }
 
     class Holder(private val binding: FesListBinding) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(fes: FesData) {
             val storage: FirebaseStorage = FirebaseStorage.getInstance()
             val storageRef: StorageReference = storage.reference
@@ -40,7 +39,7 @@ class FesAdapter(val _fes: ArrayList<FesData>) : RecyclerView.Adapter<FesAdapter
             binding.txtDate.text = fes.date
             binding.txtEnddate.text = fes.end_date
             binding.txtLocation.text = fes.location
-
         }
+
     }
 }

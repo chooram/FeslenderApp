@@ -13,10 +13,22 @@
         <action
             android:id="@+id/action_festival_search_to_festival_list"
             app:destination="@id/festival_list" />
+        <action
+            android:id="@+id/action_festival_search_to_festival_area_list"
+            app:destination="@id/festival_area_list" />
     </fragment>
     <fragment
         android:id="@+id/festival_list"
         android:name="com.OOP.FeslenderApp.festival_list"
         android:label="fragment_festival_list"
         tools:layout="@layout/fragment_festival_list" />
+    <fragment
+        android:id="@+id/festival_area_list"
+        android:name="com.OOP.FeslenderApp.festival_area_list"
+        android:label="fragment_festival_area_list"
+        tools:layout="@layout/fragment_festival_area_list" >
+        <action
+            android:id="@+id/action_festival_area_list_self"
+            app:destination="@id/festival_area_list" />
+    </fragment>
 </navigation>
