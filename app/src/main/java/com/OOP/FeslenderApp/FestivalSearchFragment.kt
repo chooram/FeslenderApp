@@ -8,14 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.OOP.FeslenderApp.databinding.FragmentFestivalListBinding
 import com.OOP.FeslenderApp.databinding.FragmentFestivalSearchBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 
-class festival_search : Fragment() {
+class FestivalSearchFragment : Fragment() {
     var binding: FragmentFestivalSearchBinding? = null
 
     override fun onCreateView(
@@ -49,9 +44,7 @@ class festival_search : Fragment() {
             findNavController().navigate(R.id.action_festival_search_to_festival_list,bundle)
         }
         binding?.btnArea?.setOnClickListener{
-            val result = "area"
-            val bundle = bundleOf("click" to result)
-            findNavController().navigate(R.id.action_festival_search_to_festival_area_list,bundle)
+            findNavController().navigate(R.id.action_festival_search_to_festival_area_list)
         }
         binding?.btnSearch?.setOnClickListener{
             val result = binding?.searchText?.text

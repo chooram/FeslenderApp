@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/festival_search"
-        android:name="com.OOP.FeslenderApp.festival_search"
+        android:name="com.OOP.FeslenderApp.FestivalSearchFragment"
         android:label="fragment_festival_search"
         tools:layout="@layout/fragment_festival_search" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/festival_list"
-        android:name="com.OOP.FeslenderApp.festival_list"
+        android:name="com.OOP.FeslenderApp.FestivalListFragment"
         android:label="fragment_festival_list"
         tools:layout="@layout/fragment_festival_list" />
     <fragment
         android:id="@+id/festival_area_list"
-        android:name="com.OOP.FeslenderApp.festival_area_list"
+        android:name="com.OOP.FeslenderApp.FestivalAreaListFragment"
         android:label="fragment_festival_area_list"
         tools:layout="@layout/fragment_festival_area_list" >
         <action
