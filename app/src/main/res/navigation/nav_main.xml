@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/festival_search">
+    app:startDestination="@id/entryFragment">
 
     <fragment
         android:id="@+id/festival_search"
@@ -30,5 +30,20 @@
         <action
             android:id="@+id/action_festival_area_list_self"
             app:destination="@id/festival_area_list" />
+        <action
+            android:id="@+id/action_festival_area_list_to_festival_list"
+            app:destination="@id/festival_list" />
+    </fragment>
+    <fragment
+        android:id="@+id/entryFragment"
+        android:name="com.OOP.FeslenderApp.EntryFragment"
+        android:label="fragment_entry"
+        tools:layout="@layout/fragment_entry" >
+        <action
+            android:id="@+id/action_entryFragment_to_festival_search"
+            app:destination="@id/festival_search" />
+        <action
+            android:id="@+id/action_entryFragment_to_festival_list"
+            app:destination="@id/festival_list" />
     </fragment>
 </navigation>
