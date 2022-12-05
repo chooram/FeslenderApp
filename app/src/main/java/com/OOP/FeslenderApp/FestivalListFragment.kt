@@ -66,16 +66,15 @@ class FestivalListFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 for (data in snapshot.children){
-
+                    if(data.key != "All"){
                     if (clickResult != "" && clickResult != "soon") {
                         if (data.key != clickResult) continue
                     }
                     val  chkMatch = data.key == "match"
-                    Log.e("check Match",chkMatch.toString())
 
                     for (ds in data.children){
                         if(clickResult == "soon"){
-                            val nowDate = "2022년 10월 20일"
+                            val nowDate = "2022년 10월20일"
                             //val nowDate = SimpleDateFormat("yyyy년 MM월dd일").format(Date())
                             val date = ds.child("date").value as String
 
@@ -102,6 +101,7 @@ class FestivalListFragment : Fragment() {
                         }
                         else viewModel.addList(ds, chkMatch)
                     }
+                }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
