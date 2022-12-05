@@ -1,6 +1,7 @@
 package com.OOP.FeslenderApp
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ class Adapter01: RecyclerView.Adapter<Adapter01.ViewHolder>() {
 
     fun build(i:ArrayList<DateEvents>):Adapter01{
         items = i
+        Log.e("Adapter01",this.toString())
         return this
     }
 
