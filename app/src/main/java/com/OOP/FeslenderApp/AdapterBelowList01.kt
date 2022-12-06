@@ -6,6 +6,10 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.OOP.FeslenderApp.databinding.ListItemBinding
 import com.google.firebase.storage.FirebaseStorage
@@ -34,6 +38,14 @@ class AdapterBelowList01: RecyclerView.Adapter<AdapterBelowList01.ViewHolder>() 
                 txtLocInList.text = loc
                 txtWhenInList.text = date
                 setImage(imgName)
+
+
+                ////
+                val result = name
+                val bundle = bundleOf("clickItem" to result)
+                rvProfileItem.setOnClickListener(
+                    Navigation.createNavigateOnClickListener(R.id.action_entryFragment_to_festivlaDetailFragment,bundle)
+                )
                 /*if(!imgName.isNullOrEmpty()) {
                     setImage(imgName)
                 }

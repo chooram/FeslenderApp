@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    android:label="축제 목록"
     app:startDestination="@id/entryFragment">
 
     <fragment
         android:id="@+id/festival_search"
         android:name="com.OOP.FeslenderApp.FestivalSearchFragment"
-        android:label="축제 검색"
-        tools:layout="@layout/fragment_festival_search">
+        android:label="fragment_festival_search"
+        tools:layout="@layout/fragment_festival_search" >
         <action
             android:id="@+id/action_festival_search_to_festival_list"
             app:destination="@id/festival_list" />
@@ -21,7 +20,7 @@
     <fragment
         android:id="@+id/festival_list"
         android:name="com.OOP.FeslenderApp.FestivalListFragment"
-        android:label="축제 목록"
+        android:label="fragment_festival_list"
         tools:layout="@layout/fragment_festival_list" >
         <action
             android:id="@+id/action_festival_list_to_festivlaDetailFragment"
@@ -30,27 +29,23 @@
     <fragment
         android:id="@+id/festival_area_list"
         android:name="com.OOP.FeslenderApp.FestivalAreaListFragment"
-        android:label="축제 목록"
-        tools:layout="@layout/fragment_festival_area_list">
+        android:label="fragment_festival_area_list"
+        tools:layout="@layout/fragment_festival_area_list" >
         <action
             android:id="@+id/action_festival_area_list_self"
             app:destination="@id/festival_area_list" />
         <action
             android:id="@+id/action_festival_area_list_to_festival_list"
             app:destination="@id/festival_list" />
-        <action
-            android:id="@+id/action_festival_area_list_to_festivlaDetailFragment"
-            app:destination="@id/festivlaDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/entryFragment"
         android:name="com.OOP.FeslenderApp.EntryFragment"
-        android:label="캘린더"
-        tools:layout="@layout/fragment_entry">
+        android:label="fragment_entry"
+        tools:layout="@layout/fragment_entry" >
         <action
             android:id="@+id/action_entryFragment_to_festival_search"
-            app:destination="@id/festival_search"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            app:destination="@id/festival_search" />
         <action
             android:id="@+id/action_entryFragment_to_festival_list"
             app:destination="@id/festival_list" />

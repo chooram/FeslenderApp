@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rv_profile_item"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"

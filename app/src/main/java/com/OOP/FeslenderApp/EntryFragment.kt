@@ -30,6 +30,7 @@ class EntryFragment : Fragment() {
 
     var list02 = mutableSetOf<FesData>()
     val items = arrayListOf<DateEvents>()
+    //var list = arrayListOf<DateEvent>()
 
     var binding: FragmentEntryBinding ?= null
 
@@ -81,6 +82,7 @@ class EntryFragment : Fragment() {
             setMonthView()
             addEvent(viewModel.dateevent)
         }
+
     }
 
 
@@ -134,7 +136,7 @@ class EntryFragment : Fragment() {
         return dayList
     }
 
-    //getData는 한번만 하게 바꾸기. . .
+
     private fun getData(){
 
         databaseReference?.addValueEventListener(object: ValueEventListener {
@@ -155,29 +157,29 @@ class EntryFragment : Fragment() {
     private fun addEvent(list: LiveData<ArrayList<DateEvent>>) {
         list.value?.let {
             for (i in it) {
-            if (monthFromDate(selectedDate).substring(0, 2) == i.date.substring(6, 8)) {
-                for (j in items) {
-                    if(j.date != "") {
-                        if (i.date.substring(10, 11) == "0") {
-                            if (i.date.substring(11, 12) == j.date) {
-                                j.events.add(i.event)
-                                j.colors.add(i.color)
-                                j.locations.add(i.location)
-                                j.images.add(i.image)
-                            }
-                        } else {
-                            if (i.date.substring(10, 12) == j.date) {
-                                j.events.add(i.event)
-                                j.colors.add(i.color)
-                                j.locations.add(i.location)
-                                j.images.add(i.image)
+                if (monthFromDate(selectedDate).substring(0, 2) == i.date.substring(6, 8)) {
+                    for (j in items) {
+                        if(j.date != "") {
+                            if (i.date.substring(10, 11) == "0") {
+                                if (i.date.substring(11, 12) == j.date) {
+                                    j.events.add(i.event)
+                                    j.colors.add(i.color)
+                                    j.locations.add(i.location)
+                                    j.images.add(i.image)
+                                }
+                            } else {
+                                if (i.date.substring(10, 12) == j.date) {
+                                    j.events.add(i.event)
+                                    j.colors.add(i.color)
+                                    j.locations.add(i.location)
+                                    j.images.add(i.image)
+                                }
                             }
                         }
                     }
                 }
-            }
 
-        }
+            }
 
         }
 
@@ -210,5 +212,5 @@ class EntryFragment : Fragment() {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
-}
+    }
 }
