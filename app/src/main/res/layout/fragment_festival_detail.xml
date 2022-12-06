@@ -37,9 +37,9 @@
 
         <ImageView
             android:id="@+id/img_poster"
-            android:layout_width="252dp"
+            android:layout_width="400dp"
             android:layout_height="437dp"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/festival_ex" />
 
     </FrameLayout>
 
