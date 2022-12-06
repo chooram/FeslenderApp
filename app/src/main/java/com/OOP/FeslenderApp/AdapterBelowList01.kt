@@ -46,11 +46,6 @@ class AdapterBelowList01: RecyclerView.Adapter<AdapterBelowList01.ViewHolder>() 
                 rvProfileItem.setOnClickListener(
                     Navigation.createNavigateOnClickListener(R.id.action_entryFragment_to_festivlaDetailFragment,bundle)
                 )
-                /*if(!imgName.isNullOrEmpty()) {
-                    setImage(imgName)
-                }
-
-                 */
             }
         }
 

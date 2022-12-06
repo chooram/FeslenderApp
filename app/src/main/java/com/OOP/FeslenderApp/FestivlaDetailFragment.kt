@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.OOP.FeslenderApp.databinding.FragmentFestivalDetailBinding
 import com.OOP.FeslenderApp.databinding.FragmentFestivalListBinding
+import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.util.*
 
 class FestivlaDetailFragment : Fragment() {
@@ -75,7 +78,14 @@ class FestivlaDetailFragment : Fragment() {
                                 binding?.txtTicket?.text = ticket_site
                                 binding?.txtPhone?.text = phone_number
 
-
+                                val storage: FirebaseStorage = FirebaseStorage.getInstance()
+                                val storageRef: StorageReference = storage.reference
+                                binding?.let{
+                                    storageRef.child(poster).downloadUrl.addOnSuccessListener { uri->
+                                        Glide.with(it.root).load(uri).into(it.imgPoster)
+                                    }.addOnFailureListener{
+                                    }
+                                }
                             }
                         }
                     }

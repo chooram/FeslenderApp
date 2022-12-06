@@ -69,8 +69,8 @@ class FestivalListFragment : Fragment() {
 
                     for (ds in data.children){
                         if(clickResult == "soon"){
-                            //val nowDate = "2022년 10월20일"
-                            val nowDate = SimpleDateFormat("yyyy년 MM월dd일").format(Date())
+                            val nowDate = "2022년 10월20일"
+                            //val nowDate = SimpleDateFormat("yyyy년 MM월dd일").format(Date())
                             val date = ds.child("date").value as String
 
                             val cmp = nowDate.compareTo(date)
