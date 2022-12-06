@@ -27,7 +27,6 @@ class FestivalAreaListFragment : Fragment() {
     var binding: FragmentFestivalAreaListBinding? = null
     val viewModel: FestivalViewModel by viewModels()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.setArea("서울")

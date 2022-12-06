@@ -36,6 +36,7 @@ class FestivalViewModel: ViewModel(){
     private val fesList = ArrayList<FesData>()
     private val eventList = ArrayList<DateEvent>()
 
+
     val fesdata: LiveData<ArrayList<FesData>> = _fesdata
     val areaSelect : LiveData<String> = _areaSelect
     val dateevent : LiveData<ArrayList<DateEvent>> = _dateevent

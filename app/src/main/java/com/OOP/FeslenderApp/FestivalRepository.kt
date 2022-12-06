@@ -1,9 +1,7 @@
 package com.OOP.FeslenderApp
 
-import android.util.Log
-import androidx.fragment.app.viewModels
+
 import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.core.view.DataEvent
 
 class FestivalRepository {
     fun readData(ds : DataSnapshot, chkMatch : Boolean): FesData{

@@ -1,7 +1,6 @@
 package com.OOP.FeslenderApp
 
-//import com.example.calfin.ListItems
-import android.graphics.Bitmap
+
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.view.LayoutInflater

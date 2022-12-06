@@ -20,11 +20,20 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class FestivlaDetailFragment : Fragment() {
+    lateinit var clickItem : String
 
     val database =
         Firebase.database("https://feslender-kotlin-70d17-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
 
     var binding: FragmentFestivalDetailBinding? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            clickItem = it.getString("clickItem") ?: ""
+        }
+        Log.e("Detail Fragment",clickItem)
+    }
 
 }
