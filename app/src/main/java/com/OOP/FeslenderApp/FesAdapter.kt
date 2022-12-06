@@ -45,6 +45,9 @@ class FesAdapter(val fes: LiveData<ArrayList<FesData>>) : RecyclerView.Adapter<F
                 binding.txtEnddate.text = it.end_date
                 binding.txtLocation.text = it.location
             }
+            binding.root.setOnClickListener{
+                Toast.makeText(binding.root.context,"이름 : ${fes?.name}",Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

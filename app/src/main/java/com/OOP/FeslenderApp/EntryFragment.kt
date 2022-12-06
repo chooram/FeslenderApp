@@ -30,7 +30,6 @@ class EntryFragment : Fragment() {
 
     var list02 = mutableSetOf<FesData>()
     val items = arrayListOf<DateEvents>()
-    var list = arrayListOf<DateEvent>()
 
     var binding: FragmentEntryBinding ?= null
 

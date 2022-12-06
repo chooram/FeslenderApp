@@ -62,7 +62,6 @@ class FestivalAreaListFragment : Fragment() {
         binding?.recFestivalArea?.layoutManager = LinearLayoutManager(context)
         binding?.recFestivalArea?.adapter = FesAdapter(viewModel.fesdata)
 
-
         viewModel.areaSelect.observe(viewLifecycleOwner) {
             viewModel.clearList()
             myRef.addValueEventListener(object : ValueEventListener {

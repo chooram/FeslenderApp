@@ -84,7 +84,6 @@ class AdapterBelowList01: RecyclerView.Adapter<AdapterBelowList01.ViewHolder>() 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.bind(items[position].name, items[position].location, items[position].date, items[position].poster)
-        //.bind03((color))
 
         val layoutParams = holder.itemView.layoutParams
         layoutParams.height =200
