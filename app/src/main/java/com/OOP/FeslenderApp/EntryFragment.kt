@@ -32,34 +32,12 @@ class EntryFragment : Fragment() {
     private var firebaseDatabase: FirebaseDatabase?= null
     private var databaseReference: DatabaseReference?= null
 
-    /*
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        selectedDate = LocalDate.now()
-
         firebaseDatabase =  Firebase.database("https://feslender-kotlin-70d17-default-rtdb.asia-southeast1.firebasedatabase.app/")
         databaseReference = firebaseDatabase!!.getReference("All")
-
-        setMonthView()
-        var list = getData()
-        addEvent(list)
-
-
-    }
-
-     */
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
-        firebaseDatabase =  Firebase.database("https://feslender-kotlin-70d17-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        databaseReference = firebaseDatabase!!.getReference("All")
-
-
 
     }
 
@@ -82,11 +60,10 @@ class EntryFragment : Fragment() {
 
         selectedDate = LocalDate.now()
         setMonthView()
+
         var list = getData()
-        //binding?.txtTest?.text = list02.toString()
         addEvent(list)
 
-        ////
 
 
         binding?.menuHam?.setOnClickListener{
@@ -95,7 +72,7 @@ class EntryFragment : Fragment() {
 
         binding?.btnPre?.setOnClickListener{
             selectedDate = selectedDate.minusMonths(1)
-            setMonthView()///
+            setMonthView()
             addEvent(list)
         }
 
@@ -158,7 +135,7 @@ class EntryFragment : Fragment() {
         return dayList
     }
 
-    //getData는 한번만 하게 바꾸기. . .
+
     private fun getData(): ArrayList<DateEvent> {
 
         databaseReference?.addValueEventListener(object: ValueEventListener {
@@ -187,7 +164,6 @@ class EntryFragment : Fragment() {
         }
         )
         return list
-        //binding?.txtTest?.text = list.toString()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

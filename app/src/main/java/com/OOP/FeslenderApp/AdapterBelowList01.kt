@@ -37,15 +37,8 @@ class AdapterBelowList01: RecyclerView.Adapter<AdapterBelowList01.ViewHolder>() 
                 txtLocInList.text = loc
                 txtWhenInList.text = date
                 setImage(imgName)
-                /*if(!imgName.isNullOrEmpty()) {
-                    setImage(imgName)
-                }
-
-                 */
                 }
                     }
-
-
 
         fun setImage(imgName: String){
             val storageRef = FirebaseStorage.getInstance().reference.child("$imgName.png")
