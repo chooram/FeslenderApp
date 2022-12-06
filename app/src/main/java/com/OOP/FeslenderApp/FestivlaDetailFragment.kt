@@ -2,10 +2,13 @@ package com.OOP.FeslenderApp
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.OOP.FeslenderApp.databinding.FragmentFestivalDetailBinding
+import com.OOP.FeslenderApp.databinding.FragmentFestivalListBinding
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -15,9 +18,17 @@ class FestivlaDetailFragment : Fragment() {
 
     lateinit var myRef: DatabaseReference
     lateinit var database: FirebaseDatabase
+    lateinit var clickItem: String
 
     var binding: FragmentFestivalDetailBinding? = null
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentFestivalDetailBinding.inflate(inflater)
+        return binding?.root
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,34 +37,48 @@ class FestivlaDetailFragment : Fragment() {
             Firebase.database("https://feslender-kotlin-70d17-default-rtdb.asia-southeast1.firebasedatabase.app/")
 
         arguments?.let {
-            clickResult = it.getString("click") ?: ""
-            searchResult = it.getString("search") ?: ""
-            myD = database.getReference()
+            clickItem = it.getString("clickItem") ?: ""
+            myRef = database.getReference()
         }
+
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fesdata.observe(viewLifecycleOwner){
-            binding?.recFestival?.adapter?.notifyDataSetChanged()
-        }
-        binding?.recFestival?.layoutManager = LinearLayoutManager(context)
-        binding?.recFestival?.adapter = FesAdapter(viewModel.fesdata)
 
-        myD.addValueEventListener(object : ValueEventListener {
+
+        myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 for (data in snapshot.children){
+                    val  chkfestival = data.key == "festival"
 
-                    val  chkMatch = data.key == "match"
-                    Log.e("check Match",chkMatch.toString())
+                    for (ds in data.children){
 
-                    val  chkConcert = data.key == "concert"
-                    Log.e("check Concert",chkConcert.toString())
+                        if (ds.child("name").value == clickItem){
+                            if (chkfestival){
+                                val name = clickItem
+                                val poster = ds.child("pos").value as String
+                                val date = ds.child("date").value as String
+                                val location = ds.child("location").value as String
+                                val end_date = ds.child("end_date").value as String
+                                val phone_number = ds.child("phone_number").value as String
+                                val home_site = ds.child("home_site").value as String
+                                val ticket_site = ds.child("ticket_site").value as String
 
-                    val  chkFestival = data.key == "festival"
-                    Log.e("check Festival",chkFestival.toString())
+
+                                binding?.textView2?.text = name
+                                binding?.txtLocation?.text = location
+                                binding?.txtDate?.text = date
+                                binding?.txtHomepage?.text = home_site
+                                binding?.txtTicket?.text = ticket_site
+                                binding?.txtPhone?.text = phone_number
+
+
+                            }
+                        }
+                    }
 
                 }
             }
