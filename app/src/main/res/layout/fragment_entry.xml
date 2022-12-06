@@ -137,7 +137,7 @@
             android:id="@+id/txt_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="일정이 없습니다." />
 
 
     </LinearLayout>

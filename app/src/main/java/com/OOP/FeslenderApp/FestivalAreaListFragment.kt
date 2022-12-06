@@ -21,8 +21,8 @@ import com.google.firebase.ktx.Firebase
 
 class FestivalAreaListFragment : Fragment() {
     lateinit var myRef: DatabaseReference
-    lateinit var database : FirebaseDatabase
-    lateinit var clickResult : String
+    lateinit var database: FirebaseDatabase
+    lateinit var clickResult: String
 
     var binding: FragmentFestivalAreaListBinding? = null
     val viewModel: FestivalViewModel by viewModels()
@@ -35,7 +35,7 @@ class FestivalAreaListFragment : Fragment() {
             Firebase.database("https://feslender-kotlin-70d17-default-rtdb.asia-southeast1.firebasedatabase.app/")
         myRef = database.getReference()
 
-        arguments?.let{
+        arguments?.let {
             clickResult = it.getString("click_area") ?: "서울"
         }
 
@@ -52,7 +52,7 @@ class FestivalAreaListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fesdata.observe(viewLifecycleOwner){
+        viewModel.fesdata.observe(viewLifecycleOwner) {
             binding?.recFestivalArea?.adapter?.notifyDataSetChanged()
         }
         binding?.recFestivalArea?.layoutManager = LinearLayoutManager(context)
@@ -64,11 +64,13 @@ class FestivalAreaListFragment : Fragment() {
             myRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for (data in snapshot.children) {
-                        val chkMatch = data.key == "match"
-                        for (ds in data.children) {
-                            if ((ds.child("area").value as String) == viewModel.areaSelect.value) {
-                                Log.e("viewModel:",viewModel.areaSelect.value.toString())
-                                viewModel.addList(ds, chkMatch)
+                        if (data.key != "All") {
+                            val chkMatch = data.key == "match"
+                            for (ds in data.children) {
+                                if ((ds.child("area").value as String) == viewModel.areaSelect.value) {
+                                    Log.e("viewModel:", viewModel.areaSelect.value.toString())
+                                    viewModel.addList(ds, chkMatch)
+                                }
                             }
                         }
                     }
