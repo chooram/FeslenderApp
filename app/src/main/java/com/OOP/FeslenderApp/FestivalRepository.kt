@@ -1,7 +1,6 @@
 package com.OOP.FeslenderApp
 
-import android.util.Log
-import androidx.fragment.app.viewModels
+
 import com.google.firebase.database.DataSnapshot
 
 class FestivalRepository {
@@ -14,6 +13,18 @@ class FestivalRepository {
             val location = ds.child("location").value as String
 
             FesData(name,date,location,end_date.toString(),poster)
+        }
+    }
+
+    fun readEventData(ds: DataSnapshot): DateEvent {
+        return run{
+            val event = ds.child("name").value.toString()
+            val date = ds.child("date").value.toString()
+            val color = ds.child("color").value.toString()
+            val location = ds.child("location").value.toString()
+            val image = ds.child("img").value.toString()//circle_p.png/circle_y.png
+
+            DateEvent(date, event, color, location, image)
         }
     }
 }

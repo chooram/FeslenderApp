@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-
-import com.OOP.FeslenderApp.databinding.ActivityMainBinding
 import com.OOP.FeslenderApp.databinding.FragmentEntryBinding
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -20,47 +20,26 @@ import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class EntryFragment : Fragment() {
-    var binding: FragmentEntryBinding ?= null
-    lateinit var selectedDate: LocalDate
+    private lateinit var firebaseDatabase: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var selectedDate: LocalDate
 
-    var list02 = mutableSetOf<ListItems>()
+    var list02 = mutableSetOf<FesData>()
     val items = arrayListOf<DateEvents>()
-    var list = arrayListOf<DateEvent>()
+    //var list = arrayListOf<DateEvent>()
 
-    private var firebaseDatabase: FirebaseDatabase?= null
-    private var databaseReference: DatabaseReference?= null
+    var binding: FragmentEntryBinding ?= null
 
-    /*
-    @RequiresApi(Build.VERSION_CODES.O)
+    val viewModel: FestivalViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        selectedDate = LocalDate.now()
-
         firebaseDatabase =  Firebase.database("https://feslender-kotlin-70d17-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        databaseReference = firebaseDatabase!!.getReference("All")
-
-        setMonthView()
-        var list = getData()
-        addEvent(list)
-
-
-    }
-
-     */
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
-        firebaseDatabase =  Firebase.database("https://feslender-kotlin-70d17-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        databaseReference = firebaseDatabase!!.getReference("All")
-
-
-
+        databaseReference = firebaseDatabase.getReference("All")
     }
 
 
@@ -69,9 +48,7 @@ class EntryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentEntryBinding.inflate(inflater)
-        // Inflate the layout for this fragment
         return binding?.root
-
     }
 
 
@@ -79,15 +56,16 @@ class EntryFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*
+        viewModel.dateevents.observe(viewLifecycleOwner){
+            binding?.rvProfile?.adapter?.notifyDataSetChanged()
+        }
+         */
 
         selectedDate = LocalDate.now()
         setMonthView()
-        var list = getData()
-        //binding?.txtTest?.text = list02.toString()
-        addEvent(list)
-
-        ////
-
+        getData()
+        addEvent(viewModel.dateevent)
 
         binding?.menuHam?.setOnClickListener{
             findNavController().navigate(R.id.action_entryFragment_to_festival_search)
@@ -96,14 +74,15 @@ class EntryFragment : Fragment() {
         binding?.btnPre?.setOnClickListener{
             selectedDate = selectedDate.minusMonths(1)
             setMonthView()///
-            addEvent(list)
+            addEvent(viewModel.dateevent)
         }
 
         binding?.btnNext?.setOnClickListener{
             selectedDate = selectedDate.plusMonths(1)
             setMonthView()
-            addEvent(list)
+            addEvent(viewModel.dateevent)
         }
+
     }
 
 
@@ -119,7 +98,6 @@ class EntryFragment : Fragment() {
                 ArrayList<String>(),ArrayList<String>(),ArrayList<String>())
             )
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -158,65 +136,53 @@ class EntryFragment : Fragment() {
         return dayList
     }
 
-    //getData는 한번만 하게 바꾸기. . .
-    private fun getData(): ArrayList<DateEvent> {
+
+    private fun getData(){
 
         databaseReference?.addValueEventListener(object: ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 for(ds in snapshot.children){
-
-                    val event = ds.child("name").value.toString()
-                    val date = ds.child("date").value.toString()
-                    val color = ds.child("color").value.toString()
-                    val location = ds.child("location").value.toString()
-                    val image = ds.child("img").value.toString()//circle_p.png/circle_y.png
-
-                    val user = DateEvent(date = date, event = event, color = color, location = location,  image = image)
-
-                    list.add(user)
-                   // binding?.txtTest?.text = list.toString()
+                    viewModel.addEventList(ds)
                 }
-
             }
-
             override fun onCancelled(error: DatabaseError) {
                 Log.e("ooooo","onCancelled: ${error.toException()}")
             }
         }
         )
-        return list
-        //binding?.txtTest?.text = list.toString()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun addEvent(list: ArrayList<DateEvent>) {
-
-        for (i in list) {
-            if (monthFromDate(selectedDate).substring(0, 2) == i.date.substring(6, 8)) {
-                for (j in items) {
-                    if(j.date != "") {
-                        if (i.date.substring(10, 11) == "0") {
-                            if (i.date.substring(11, 12) == j.date) {
-                                j.events.add(i.event)
-                                j.colors.add(i.color)
-                                j.locations.add(i.location)
-                                j.images.add(i.image)
-                            }
-                        } else {
-                            if (i.date.substring(10, 12) == j.date) {
-                                j.events.add(i.event)
-                                j.colors.add(i.color)
-                                j.locations.add(i.location)
-                                j.images.add(i.image)
+    private fun addEvent(list: LiveData<ArrayList<DateEvent>>) {
+        list.value?.let {
+            for (i in it) {
+                if (monthFromDate(selectedDate).substring(0, 2) == i.date.substring(6, 8)) {
+                    for (j in items) {
+                        if(j.date != "") {
+                            if (i.date.substring(10, 11) == "0") {
+                                if (i.date.substring(11, 12) == j.date) {
+                                    j.events.add(i.event)
+                                    j.colors.add(i.color)
+                                    j.locations.add(i.location)
+                                    j.images.add(i.image)
+                                }
+                            } else {
+                                if (i.date.substring(10, 12) == j.date) {
+                                    j.events.add(i.event)
+                                    j.colors.add(i.color)
+                                    j.locations.add(i.location)
+                                    j.images.add(i.image)
+                                }
                             }
                         }
                     }
                 }
+
             }
 
         }
+
 
         binding?.rvCell?.apply {
             adapter = Adapter01().build(items)
@@ -230,26 +196,21 @@ class EntryFragment : Fragment() {
             var size = i.events.size
 
             if(size != 0 ){
-
-
                 if(size==1){
-                    list02.add(ListItems(i.events.elementAt(0),"${monthYearFromDate(selectedDate)} ${i.date}일",i.locations.elementAt(0),i.images.elementAt(0)))
+                    list02.add(FesData(i.events.elementAt(0),"${monthYearFromDate(selectedDate)} ${i.date}일",i.locations.elementAt(0),"",i.images.elementAt(0)))
                 }
                 else{
                     for(k in 0 until size){
-                        list02.add(ListItems(i.events.elementAt(k),"${monthYearFromDate(selectedDate)} ${i.date}일",i.locations.elementAt(k),i.images.elementAt(k)))
+                        list02.add(FesData(i.events.elementAt(k),"${monthYearFromDate(selectedDate)} ${i.date}일",i.locations.elementAt(k),"",i.images.elementAt(k)))
                     }
                 }
-
-
             }
         }
-
 
         binding?.rvProfile?.apply {
             adapter = AdapterBelowList01().build(ArrayList(list02))
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
-}
+    }
 }

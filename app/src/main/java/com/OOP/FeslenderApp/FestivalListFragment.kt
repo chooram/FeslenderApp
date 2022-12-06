@@ -1,7 +1,6 @@
 package com.OOP.FeslenderApp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class FestivalListFragment : Fragment() {
@@ -59,19 +60,17 @@ class FestivalListFragment : Fragment() {
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 for (data in snapshot.children){
-
+                    if(data.key != "All"){
                     if (clickResult != "" && clickResult != "soon") {
                         if (data.key != clickResult) continue
                     }
                     val  chkMatch = data.key == "match"
-                    Log.e("check Match",chkMatch.toString())
 
                     for (ds in data.children){
                         if(clickResult == "soon"){
-                            val nowDate = "2022년 10월 20일"
-                            //val nowDate = SimpleDateFormat("yyyy년 MM월dd일").format(Date())
+                            //val nowDate = "2022년 10월20일"
+                            val nowDate = SimpleDateFormat("yyyy년 MM월dd일").format(Date())
                             val date = ds.child("date").value as String
 
                             val cmp = nowDate.compareTo(date)
@@ -97,6 +96,7 @@ class FestivalListFragment : Fragment() {
                         }
                         else viewModel.addList(ds, chkMatch)
                     }
+                }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
