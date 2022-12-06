@@ -7,6 +7,9 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.OOP.FeslenderApp.databinding.ListItemBinding
 import com.google.firebase.storage.FirebaseStorage
@@ -17,14 +20,12 @@ import java.time.format.DateTimeFormatter
 class AdapterBelowList01: RecyclerView.Adapter<AdapterBelowList01.ViewHolder>()  {
 
 
-    private lateinit var items: ArrayList<ListItems>
+    private lateinit var items: ArrayList<FesData>
 
-    fun build(i:ArrayList<ListItems>): AdapterBelowList01{
+    fun build(i:ArrayList<FesData>): AdapterBelowList01{
         items = i
         return this
     }
-
-
 
 
     //img,name,loc,date
@@ -37,8 +38,21 @@ class AdapterBelowList01: RecyclerView.Adapter<AdapterBelowList01.ViewHolder>() 
                 txtLocInList.text = loc
                 txtWhenInList.text = date
                 setImage(imgName)
+
+
+                ////
+                rvProfileItem.setOnClickListener(
+                    Navigation.createNavigateOnClickListener(R.id.action_entryFragment_to_festivlaDetailFragment)
+                )
+                /*if(!imgName.isNullOrEmpty()) {
+                    setImage(imgName)
                 }
-                    }
+
+                 */
+            }
+        }
+
+
 
         fun setImage(imgName: String){
             val storageRef = FirebaseStorage.getInstance().reference.child("$imgName.png")
@@ -78,7 +92,7 @@ class AdapterBelowList01: RecyclerView.Adapter<AdapterBelowList01.ViewHolder>() 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.bind(items[position].name, items[position].where, items[position].date, items[position].imgUrl)
+        holder.bind(items[position].name, items[position].location, items[position].date, items[position].poster)
         //.bind03((color))
 
         val layoutParams = holder.itemView.layoutParams
